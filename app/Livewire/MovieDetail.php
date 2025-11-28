@@ -23,14 +23,14 @@ class MovieDetail extends Component
     public ?string $backUrl = null;
     public bool $isOnWatchlist = false;
 
-    public function mount(string $imdbId)
+    public function mount(string $imdbId): void
     {
         $this->imdbId = $imdbId;
         $this->backUrl = url()->previous();
         $this->loadMovie();
     }
 
-    public function loadMovie()
+    public function loadMovie(): void
     {
         $omdbService = app(OmdbService::class);
         $this->movie = $omdbService->getMovieById($this->imdbId);
@@ -49,7 +49,7 @@ class MovieDetail extends Component
             );
 
             if (Auth::check()) {
-                $userRatingRecord = Rating::where('movie_id', $movieRecord->id)
+                $userRatingRecord = Rating::where('movie_id', $movieRecord->getKey())
                     ->where('user_id', Auth::id())
                     ->first();
 
@@ -59,18 +59,18 @@ class MovieDetail extends Component
                 }
 
                 $this->isOnWatchlist = Watchlist::where('user_id', Auth::id())
-                    ->where('movie_id', $movieRecord->id)
+                    ->where('movie_id', $movieRecord->getKey())
                     ->exists();
             }
         }
     }
 
-    public function setRating(int $rating)
+    public function setRating(int $rating): void
     {
         $this->selectedRating = $rating;
     }
 
-    public function saveRating()
+    public function saveRating(): void
     {
         try {
             $saveRatingAction = app(SaveMovieRating::class);
@@ -91,7 +91,7 @@ class MovieDetail extends Component
         }
     }
 
-    public function toggleWatchlist()
+    public function toggleWatchlist(): void
     {
         $toggleAction = app(ToggleWatchList::class);
 

@@ -13,18 +13,18 @@ class ToggleWatchList
         $movie = $this->ensureMovieExists($imdbId, $movieDetails);
 
         $exists = Watchlist::where('user_id', $userId)
-            ->where('movie_id', $movie->id)
+            ->where('movie_id', $movie->getKey())
             ->exists();
 
         if ($exists) {
             Watchlist::where('user_id', $userId)
-                ->where('movie_id', $movie->id)
+                ->where('movie_id', $movie->getKey())
                 ->delete();
             return false;
         } else {
             Watchlist::create([
                 'user_id' => $userId,
-                'movie_id' => $movie->id,
+                'movie_id' => $movie->getKey(),
             ]);
             return true;
         }

@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\DTOs\MovieDetailData;
 use App\Models\Movie;
 use App\Models\Rating;
+use InvalidArgumentException;
 
 class SaveMovieRating
 {
@@ -24,7 +25,7 @@ class SaveMovieRating
     protected function validate(int $rating): void
     {
         if ($rating < 1 || $rating > 10) {
-            throw new \InvalidArgumentException('Rating must be between 1 and 10');
+            throw new InvalidArgumentException('Rating must be between 1 and 10');
         }
     }
 

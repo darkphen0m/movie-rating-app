@@ -14,7 +14,7 @@ class MovieSearch extends Component
     public int $totalResults = 0;
     public int $totalPages = 0;
 
-    public function updatedSearch()
+    public function updatedSearch(): void
     {
         $this->currentPage = 1; // Reset auf Seite 1 bei neuer Suche
 
@@ -25,7 +25,7 @@ class MovieSearch extends Component
         }
     }
 
-    public function searchMovies()
+    public function searchMovies(): void
     {
         $omdbService = app(OmdbService::class);
         $response = $omdbService->search($this->search, $this->currentPage);
@@ -40,7 +40,7 @@ class MovieSearch extends Component
         }
     }
 
-    public function goToPage(int $page)
+    public function goToPage(int $page): void
     {
         if ($page >= 1 && $page <= $this->totalPages) {
             $this->currentPage = $page;
@@ -51,21 +51,21 @@ class MovieSearch extends Component
         }
     }
 
-    public function nextPage()
+    public function nextPage(): void
     {
         if ($this->currentPage < $this->totalPages) {
             $this->goToPage($this->currentPage + 1);
         }
     }
 
-    public function previousPage()
+    public function previousPage(): void
     {
         if ($this->currentPage > 1) {
             $this->goToPage($this->currentPage - 1);
         }
     }
 
-    protected function resetResults()
+    protected function resetResults(): void
     {
         $this->results = [];
         $this->totalResults = 0;
@@ -73,7 +73,7 @@ class MovieSearch extends Component
         $this->currentPage = 1;
     }
 
-    protected function withRatings()
+    protected function withRatings(): void
     {
         $imdbIds = collect($this->results)->pluck('imdbId')->toArray();
 
