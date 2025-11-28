@@ -31,6 +31,9 @@ new class extends Component
                         <x-nav-link :href="route('movies.rated')" :active="request()->routeIs('movies.rated')">
                             {{ __('Bewertete Filme') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('watchlist')" :active="request()->routeIs('watchlist')">
+                            {{ __('Watchlist') }}
+                        </x-nav-link>
                     </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -97,10 +100,14 @@ new class extends Component
                 <x-responsive-nav-link :href="route('movie.search')" :active="request()->routeIs('movie.search')">
                     {{ __('Filmsuche') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('watchlist')" :active="request()->routeIs('watchlist')">
+                    {{ __('Watchlist') }}
+                </x-responsive-nav-link>
             @endauth
             <x-responsive-nav-link :href="route('movies.rated')" :active="request()->routeIs('movies.rated')">
                 {{ __('Bewertete Filme') }}
             </x-responsive-nav-link>
+
         </div>
 
         @auth

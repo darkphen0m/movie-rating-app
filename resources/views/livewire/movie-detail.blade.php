@@ -53,7 +53,22 @@
                                 </div>
                             @endif
 
-                            <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                <button
+                                    wire:click="toggleWatchlist"
+                                    class="w-full mt-4 px-4 py-3 rounded-lg font-semibold transition {{ $isOnWatchlist
+            ? 'bg-red-600 hover:bg-red-700 text-white'
+            : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+        }}"
+                                >
+                                    @if($isOnWatchlist)
+                                        ✓ Auf Watchlist
+                                    @else
+                                        + Zur Watchlist hinzufügen
+                                    @endif
+                                </button>
+
+
+                                <div class="mt-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                                 <h3 class="font-semibold text-sm text-gray-700 dark:text-gray-300 mb-3">Bewertungen</h3>
 
                                 @if($movie->internalRating)

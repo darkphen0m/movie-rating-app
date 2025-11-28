@@ -6,8 +6,10 @@ use Livewire\Component;
 use App\Services\OmdbService;
 use App\Models\Movie;
 use App\Models\Rating;
+use App\Models\Watchlist;
 use App\DTOs\MovieDetailData;
 use App\Actions\SaveMovieRating;
+use App\Actions\ToggleWatchlist;
 use Illuminate\Support\Facades\Auth;
 
 class MovieDetail extends Component
@@ -19,7 +21,7 @@ class MovieDetail extends Component
     public ?int $userRating = null;
     public ?int $selectedRating = null;
     public ?string $backUrl = null;
-
+    public bool $isOnWatchlist = false;
 
     public function mount(string $imdbId)
     {
@@ -46,13 +48,19 @@ class MovieDetail extends Component
                 $movieRecord->ratingsCount()
             );
 
-            $userRatingRecord = Rating::where('movie_id', $movieRecord->id)
-                ->where('user_id', Auth::id())
-                ->first();
+            if (Auth::check()) {
+                $userRatingRecord = Rating::where('movie_id', $movieRecord->id)
+                    ->where('user_id', Auth::id())
+                    ->first();
 
-            if ($userRatingRecord) {
-                $this->userRating = $userRatingRecord->rating;
-                $this->selectedRating = $userRatingRecord->rating;
+                if ($userRatingRecord) {
+                    $this->userRating = $userRatingRecord->rating;
+                    $this->selectedRating = $userRatingRecord->rating;
+                }
+
+                $this->isOnWatchlist = Watchlist::where('user_id', Auth::id())
+                    ->where('movie_id', $movieRecord->id)
+                    ->exists();
             }
         }
     }
@@ -81,6 +89,20 @@ class MovieDetail extends Component
         } catch (\InvalidArgumentException $e) {
             session()->flash('error', $e->getMessage());
         }
+    }
+
+    public function toggleWatchlist()
+    {
+        $toggleAction = app(ToggleWatchlist::class);
+
+        $added = $toggleAction(Auth::id(), $this->imdbId, $this->movie);
+
+        $this->isOnWatchlist = $added;
+
+        session()->flash(
+            'success',
+            $added ? 'Zur Watchlist hinzugefügt!' : 'Von Watchlist entfernt!'
+        );
     }
 
     public function render()

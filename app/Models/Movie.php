@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
@@ -36,5 +37,10 @@ class Movie extends Model
     public function ratingsCount(): int
     {
         return $this->ratings()->count();
+    }
+
+    public function watchlistedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'watchlist');
     }
 }

@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Actions;
+
+use App\DTOs\MovieDetailData;
+use App\Models\Movie;
+use App\Models\Watchlist;
+
+class ToggleWatchlist
+{
+    public function __invoke(int $userId, string $imdbId, MovieDetailData $movieDetails): bool
+    {
+        $movie = $this->ensureMovieExists($imdbId, $movieDetails);
+
+        $exists = Watchlist::where('user_id', $userId)
+            ->where('movie_id', $movie->id)
+            ->exists();
+
+        if ($exists) {
+            Watchlist::where('user_id', $userId)
+                ->where('movie_id', $movie->id)
+                ->delete();
+            return false;
+        } else {
+            Watchlist::create([
+                'user_id' => $userId,
+                'movie_id' => $movie->id,
+            ]);
+            return true;
+        }
+    }
+
+    protected function ensureMovieExists(string $imdbId, MovieDetailData $movieDetails): Movie
+    {
+        return Movie::firstOrCreate(
+            ['imdb_id' => $imdbId],
+            [
+                'title' => $movieDetails->title,
+                'year' => $movieDetails->year,
+                'poster_url' => $movieDetails->posterUrl,
+            ]
+        );
+    }
+}
