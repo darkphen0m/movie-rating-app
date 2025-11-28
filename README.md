@@ -1,59 +1,92 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Movie Rating App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel-Webanwendung zur Suche und Bewertung von Filmen. Code Challenge für die GEDISA.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Benutzer-Authentifizierung (Laravel Breeze)
+- Filmsuche via OMDb API mit Live-Suche
+- Filmbewertung (1-10 Sterne)
+- Liste aller bewerteten Filme (öffentlich)
+- Watchlist (Bonus)
+- Tests mit Pest (Bonus)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.4
+- Laravel 12
+- Livewire
+- Tailwind CSS
+- MariaDB
+- Spatie Laravel Data (DTOs)
+- Pest
 
-## Learning Laravel
+## Installation
+```bash
+# Repository klonen
+git clone <repository-url>
+cd movie-rating-app
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+# Dependencies
+composer install
+npm install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Environment
+cp .env.example .env
+# OMDB_API_KEY in .env eintragen!
 
-## Laravel Sponsors
+# Setup
+php artisan key:generate
+php artisan migrate
+npm run build
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Server starten (mit Laravel Herd oder php artisan serve)
+```
 
-### Premium Partners
+## Konfiguration
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**`.env` wichtige Werte:**
+```env
+DB_CONNECTION=mysql
+DB_DATABASE=movie_rating_app
+DB_USERNAME=root
+DB_PASSWORD=
 
-## Contributing
+OMDB_API_KEY=your_key_here
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+OMDb API Key: [omdbapi.com](https://www.omdbapi.com/)
 
-## Code of Conduct
+## Tests
+```bash
+php artisan test
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Architektur
 
-## Security Vulnerabilities
+- **DTOs** mit Spatie Laravel Data + Wireable für Livewire
+- **Single Action Classes** für Business-Logik (SaveMovieRating, ToggleWatchlist)
+- **Filmdaten**: Nur IMDb-ID, Titel, Jahr und Poster gecacht. API-Calls für Details.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Struktur
+```
+app/
+├── Actions/         # Business-Logik
+├── DTOs/            # Data Transfer Objects
+├── Livewire/        # Komponenten
+├── Models/          # Movie, Rating, Watchlist
+└── Services/        # OmdbService
 
-## License
+tests/Feature/       # Pest Tests
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Verwendung
+
+1. Registrieren/Login
+2. Filmsuche - Ergebnisse mit interner Bewertung
+3. Film auswählen - Details ansehen, bewerten und auf Watchlist setzen
+4. Watchlist
+5. "Bewertete Filme" (Öffentliche Liste)
+
+
+Entwickelt von Robin Just für eine Code Challenge der GEDISA.
