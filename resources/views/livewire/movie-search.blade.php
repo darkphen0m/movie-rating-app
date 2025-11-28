@@ -24,7 +24,7 @@
 
             {{-- Results --}}
             @if(!empty($results))
-                <div class="grid grid-cols-3 lg:grid-cols-3 md:grid-cols-4 gap-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                     @foreach($results as $movie)
                         <a href="{{ route('movie.detail', $movie['imdbId']) }}"
                            wire:navigate
@@ -33,9 +33,9 @@
                             @if(!empty($movie['posterUrl']))
                                 <img src="{{ $movie['posterUrl'] }}"
                                      alt="{{ $movie['title'] }}"
-                                     class="w-full h-40 object-cover rounded-t-lg">
+                                     class="w-full object-cover rounded-t-lg">
                             @else
-                                <div class="w-full h-40 bg-gray-200 dark:bg-gray-600 rounded-t-lg flex items-center justify-center" style="height: 300px;">
+                                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-t-lg flex items-center justify-center" style="height: 300px;">
                                     <span class="text-gray-400">Kein Bild</span>
                                 </div>
                             @endif
