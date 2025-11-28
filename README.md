@@ -2,6 +2,15 @@
 
 Laravel-Webanwendung zur Suche und Bewertung von Filmen. Code Challenge für die GEDISA.
 
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/c46ac13b-3aff-47cc-ae1c-2e652eaf1720" alt="Filmsuche" width="400"/></td>
+    <td><img src="https://github.com/user-attachments/assets/728a50eb-b838-4e79-a4a1-31dc94415baf" alt="Bewertung" width="400"/></td>
+    <td><img src="https://github.com/user-attachments/assets/c515933a-4530-4396-8acf-569ccdfdddd0" alt="Bewertete Filme" width="400"/></td>
+  </tr>
+</table>
+
+
 ## Features
 
 - Benutzer-Authentifizierung (Laravel Breeze)
