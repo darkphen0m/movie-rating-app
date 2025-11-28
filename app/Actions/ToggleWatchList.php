@@ -6,7 +6,7 @@ use App\DTOs\MovieDetailData;
 use App\Models\Movie;
 use App\Models\Watchlist;
 
-class ToggleWatchlist
+class ToggleWatchList
 {
     public function __invoke(int $userId, string $imdbId, MovieDetailData $movieDetails): bool
     {
