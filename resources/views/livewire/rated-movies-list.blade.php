@@ -50,7 +50,7 @@
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-1">
                                             <span class="text-sm">⭐</span>
-                                            <span class="text-sm font-semibold">{{ number_format($movie->averageRating(), 1) }}</span>
+                                            <span class="text-sm font-semibold text-white">{{ number_format($movie->averageRating(), 1) }}</span>
                                         </div>
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ $movie->ratings_count }} {{ $movie->ratings_count === 1 ? 'Bewertung' : 'Bewertungen' }}
