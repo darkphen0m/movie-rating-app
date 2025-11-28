@@ -6,9 +6,12 @@
                 <div class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-800 rounded-lg p-4">
                     <p class="text-red-800 dark:text-red-200">{{ $errorMessage }}</p>
                 </div>
-                <div class="mt-4">
-                    <a href="{{ route('movie.search') }}" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">
-                        ← Zurück zur Suche
+                <div class="mb-6">
+                    <a href="{{ $backUrl }}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Zurück
                     </a>
                 </div>
             </div>
@@ -29,11 +32,11 @@
 
                 <div class="p-6">
                     <div class="mb-6">
-                        <a href="{{ route('movie.search') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
+                        <a href="{{ $backUrl }}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                             </svg>
-                            Zurück zur Suche
+                            Zurück
                         </a>
                     </div>
 

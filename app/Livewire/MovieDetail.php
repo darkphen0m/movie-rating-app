@@ -18,10 +18,13 @@ class MovieDetail extends Component
 
     public ?int $userRating = null;
     public ?int $selectedRating = null;
+    public ?string $backUrl = null;
+
 
     public function mount(string $imdbId)
     {
         $this->imdbId = $imdbId;
+        $this->backUrl = url()->previous();
         $this->loadMovie();
     }
 
