@@ -51,7 +51,7 @@
                                 @if(isset($movie['internalRating']))
                                     <div class="mt-2 flex items-center gap-1">
                                         <span class="text-sm">⭐</span>
-                                        <span class="text-sm font-semibold">{{ number_format($movie['internalRating'], 1) }}</span>
+                                        <span class="text-sm font-semibold text-white">{{ number_format($movie['internalRating'], 1) }}</span>
                                         <span class="text-xs text-gray-500">({{ $movie['ratingsCount'] }})</span>
                                     </div>
                                 @endif

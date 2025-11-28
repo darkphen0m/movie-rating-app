@@ -34,7 +34,7 @@ class MovieSearch extends Component
             $this->results = $response->results->toArray();
             $this->totalResults = $response->totalResults;
             $this->totalPages = (int) ceil($response->totalResults / 10); // 10 Ergebnisse pro Seite
-            //$this->enrichWithRatings();
+            $this->withRatings();
         } else {
             $this->resetResults();
         }
@@ -71,6 +71,24 @@ class MovieSearch extends Component
         $this->totalResults = 0;
         $this->totalPages = 0;
         $this->currentPage = 1;
+    }
+
+    protected function withRatings()
+    {
+        $imdbIds = collect($this->results)->pluck('imdbId')->toArray();
+
+        $ratedMovies = Movie::whereIn('imdb_id', $imdbIds)
+            ->withCount('ratings')
+            ->get()
+            ->keyBy('imdb_id');
+
+        foreach ($this->results as &$result) {
+            if ($ratedMovies->has($result['imdbId'])) {
+                $movie = $ratedMovies->get($result['imdbId']);
+                $result['internalRating'] = $movie->averageRating();
+                $result['ratingsCount'] = $movie->ratings_count;
+            }
+        }
     }
 
     public function render()
