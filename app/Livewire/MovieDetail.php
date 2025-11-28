@@ -9,7 +9,7 @@ use App\Models\Rating;
 use App\Models\Watchlist;
 use App\DTOs\MovieDetailData;
 use App\Actions\SaveMovieRating;
-use App\Actions\ToggleWatchlist;
+use App\Actions\ToggleWatchList;
 use Illuminate\Support\Facades\Auth;
 
 class MovieDetail extends Component
@@ -93,7 +93,7 @@ class MovieDetail extends Component
 
     public function toggleWatchlist()
     {
-        $toggleAction = app(ToggleWatchlist::class);
+        $toggleAction = app(ToggleWatchList::class);
 
         $added = $toggleAction(Auth::id(), $this->imdbId, $this->movie);
 
