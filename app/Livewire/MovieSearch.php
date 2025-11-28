@@ -34,7 +34,7 @@ class MovieSearch extends Component
             $this->results = $response->results->toArray();
             $this->totalResults = $response->totalResults;
             $this->totalPages = (int) ceil($response->totalResults / 10); // 10 Ergebnisse pro Seite
-            $this->enrichWithRatings();
+            //$this->enrichWithRatings();
         } else {
             $this->resetResults();
         }
